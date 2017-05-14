@@ -2,7 +2,7 @@ source "https://rubygems.org/"
 
 gem "pg"
 gem "sinatra"
-
+gem "sinatra-flash"
 group :development, :test do
   gem "pry"
 end

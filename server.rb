@@ -1,6 +1,7 @@
 require "sinatra"
 require "pg"
 require "pry"
+require "sinatra/flash"
 require_relative "./app/models/article"
 
 set :bind, '0.0.0.0'  # bind to all interfaces
@@ -23,6 +24,14 @@ def db_connection
   end
 end
 
+def all_forms_filled?
+   @title != "" && @url != "" && @description != ""
+end
+def valid_title?
+  @tile  
+end
+
+
 # Put your News Aggregator server.rb route code here
 get '/' do
   redirect '/articles'
@@ -40,11 +49,16 @@ get '/articles/new' do
 end
 
 post '/articles' do
-  title = params['title']
-  url = params['url']
-  description = params['description']
+  @title = params['title']
+  @url = params['url']
+  @description = params['description']
   db_connection do |conn|
-    conn.exec_params("INSERT INTO articles (title,url,description) VALUES ($1,$2,$3)", [title,url,description])
+    if all_forms_filled?
+      conn.exec_params("INSERT INTO articles (title,url,description) VALUES ($1,$2,$3)", [@title,@url,@description])
+    else
+      flash[:error] = "Please completely fill out form"
+      redirect "/articles"
+    end
   end
   redirect "/articles"
 end

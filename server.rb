@@ -30,7 +30,7 @@ end
 
 get '/articles' do
   @articles = db_connection do |conn|
-    conn.exec("SELECT title FROM articles")
+    conn.exec("SELECT * FROM articles")
   end
   erb :index
 end
@@ -41,9 +41,8 @@ end
 
 post '/articles' do
   title = params['title']
-  url = params['URL']
-  description = params['Description']
-binding.pry
+  url = params['url']
+  description = params['description']
   db_connection do |conn|
     conn.exec_params("INSERT INTO articles (title,url,description) VALUES ($1,$2,$3)", [title,url,description])
   end

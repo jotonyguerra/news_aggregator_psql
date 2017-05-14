@@ -6,22 +6,44 @@
   </head>
 
   <body>
+    <div class="text-center">
+    <h3> Articles </h3>
+    <div class="large-12 columns">
 
-    <% @articles.each do |articles| %>
-      <li><a href="/articles/<%= articles["title"] %>"><%= articles["title"] %></a></li>
+
+    <ul class="menu vertical">
+      <div class="callout secondary"
+      <% @articles.each do |article| %>
+      <li>
+        <b>Title:</b>
+        <%= article["title"]%>
+        <br>
+        <b>URL:</b>
+        <i>
+          <a href="<%= article["url"] %>">
+            <%=article["url"]%>
+          </a>
+        </i>
+        <b> Description: </b>
+        <%= article["description"]%>
+    </li>
       <%end%>
+    </div>
+    </div>
+    </ul>
+
 
       <form action="/articles" method="post">
         <label for="title">Title:</label>
         <input type="text" id="title" name="title">
 
-        <label for="URL">URL:</label>
-        <input type="text" id="URL" name="URL">
+        <label for="url">URL:</label>
+        <input type="text" id="url" name="url">
 
-        <label for="Description">Description:</label>
-        <input type="text" id="Description" name="Description">
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description">
         <input type="submit" value="Submit">
       </form>
-
+</div>
   </body>
 </html>

@@ -1,0 +1,27 @@
+<!-- Put your News Aggregator articles.erb code here -->
+<!doctype html>
+<html>
+  <head>
+    <title>News Aggregator</title>
+  </head>
+
+  <body>
+
+    <% @articles.each do |articles| %>
+      <li><a href="/articles/<%= articles["title"] %>"><%= articles["title"] %></a></li>
+      <%end%>
+
+      <form action="/articles" method="post">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title">
+
+        <label for="URL">URL:</label>
+        <input type="text" id="URL" name="URL">
+
+        <label for="Description">Description:</label>
+        <input type="text" id="Description" name="Description">
+        <input type="submit" value="Submit">
+      </form>
+
+  </body>
+</html>
